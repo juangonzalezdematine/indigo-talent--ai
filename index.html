@@ -189,7 +189,7 @@
   .report-section p{margin:0 0 12px;font-size:15px;color:#2a2c45;line-height:1.65}
   .report-section p:last-child{margin-bottom:0}
 
-  /* Gráfico de barras horizontales */
+  /* Gráfico de barras */
   .breakdown {
     display: flex;
     flex-direction: column;
@@ -232,9 +232,6 @@
 
   .footer-note{margin-top:32px;font-size:12px;color:var(--muted);text-align:center}
 
-  /* ============================================================
-     SISTEMA DE IMPRESIÓN EXCLUSIVO (PDF PREMIUM RE-DISEÑADO)
-     ============================================================ */
   @media print{
     @page { margin: 0; }
     body{
@@ -330,14 +327,14 @@
 
 <script>
 /* ============================================================
-   LÍNEA 557: PEGÁ ACÁ ADENTRO TU ENLACE /EXEC DE APPS SCRIPT IA
+   CAMBIÁ EL TEXTO ENTRE COMILLAS POR TU URL /EXEC DE GOOGLE:
    ============================================================ */
-const APPS_SCRIPT_URL = 'PEGAR_AQUI_TU_NUEVO_URL_EXEC';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjTf0fYAu2iLFuaYBl44f6HyCQtKRIkKoHUpoNDNsDs3-EGN-v4fHrTLOvonUlKquTMw/exec';
 
 let informeExclusivoIA = "";
 
 async function sendToSheet(payload){
-  if(APPS_SCRIPT_URL === 'PEGAR_AQUI_TU_NUEVO_URL_EXEC'){
+  if(APPS_SCRIPT_URL === 'TU_URL_DE_GOOGLE_VA_ACA'){
     console.warn('[Sheet] URL de Inteligencia Artificial no configurada.');
     return;
   }
@@ -355,7 +352,7 @@ async function sendToSheet(payload){
     }
   } catch(e){
     console.error('[Error IA Backend]:', e);
-    informeExclusivoIA = "Análisis Indigo: Se detectaron cuellos de botella latentes en el desarrollo de mandos medios y alineamiento estratégico. Diagnóstico detallado reservado para la sesión de consultoría presencial.";
+    informeExclusivoIA = "Análisis Indigo: Se detectaron desafíos latentes en mandos medios y alineamiento estratégico estructural. Diagnóstico detallado reservado para la sesión presencial de 20 minutos.";
   }
 }
 
@@ -448,7 +445,7 @@ const PREGUNTAS = [
     options:[
       {tag:'Madura', class:'madura', points:3, text:'Contamos con planes de sucesión para puestos clave y programas activos para actualizar las competencias del equipo frente a los avances tecnológicos y del mercado.'},
       {tag:'Intermedia', class:'intermedia', points:2, text:'Hay capacitaciones puntuales e individuales para responder a demandas de negocio específicas, pero sin un plan de desarrollo estructurado ni una línea de sucesión clara.'},
-      {tag:'Crítica', class:'critica', points:1, text:'No existen planes de carrera ni evaluaciones de desempeño. Los líderes gestionan \"como pueden\" y los colaboradores manifiestan estancamiento profesional.'},
+      {tag:'Crítica', class:'critica', points:1, text:'No existen planes de carrera ni evaluaciones de desempeño. Los líderes gestionan "como pueden" y los colaboradores manifiestan estancamiento profesional.'},
     ]
   },
   {
@@ -484,7 +481,7 @@ const PREGUNTAS = [
     text:'Sobre la conexión entre los objetivos del negocio y la planificación de la estructura:',
     options:[
       {tag:'Madura', class:'madura', points:3, text:'La estrategia de negocio a mediano plazo está clara y RR.HH. ya tiene proyectadas las capacidades, roles y competencias que el equipo necesitará para cumplir esos objetivos.'},
-      {tag:'Intermedia', class:'intermedia', points:2, text:'Sabemos hacia dónde va el negocio este año, los objetivos comerciales son claros, pero planificamos la necesidad de personal \"sobre la marcha\", cuando los cuellos de botella ya aparecieron.'},
+      {tag:'Intermedia', class:'intermedia', points:2, text:'Sabemos hacia dónde va el negocio este año, los objetivos comerciales son claros, pero planificamos la necesidad de personal "sobre la marcha", cuando los cuellos de botella ya aparecieron.'},
       {tag:'Crítica', class:'critica', points:1, text:'Vivimos en el cortísimo plazo. Los objetivos cambian frecuentemente según la coyuntura y no hay conexión real entre las metas de facturación y la estructura del equipo.'},
     ]
   },
@@ -522,7 +519,7 @@ const BLOQUES_PERFIL = {
 };
 
 /* ============================================================
-   ENGINE FLOW (ANTI FRICCION DE CARGA DE IA)
+   ENGINE FLOW
    ============================================================ */
 const state = { step:0, total: SEGMENTACION.length + PREGUNTAS.length, answers:{}, lead:{} };
 
@@ -614,9 +611,7 @@ async function submitLead(){
   });
   if(!valid) return false;
 
-  // Seteo de Loading state profesional
   const btnSubmit = form.querySelector('.btn-primary');
-  const textoOriginal = btnSubmit.innerHTML;
   btnSubmit.innerHTML = "Procesando con IA... ⏳";
   btnSubmit.disabled = true;
 
@@ -643,7 +638,6 @@ async function submitLead(){
     q9: state.answers.q9?.tag || "No respondido"
   };
   
-  // Espera obligatoria del canal HTTP antes de renderizar la pantalla final
   await sendToSheet(payload);
 
   renderResults();
@@ -707,9 +701,9 @@ function renderResults(){
     <div class="cta-block">
       <span class="eyebrow">Próximo paso estratégico</span>
       <h3>${lead.nombre}, conversemos sobre los próximos 90 días de ${lead.empresa}.</h3>
-      <p>Una sesión de consultoría uno a uno de 20 minutos sin costo con el equipo senior de Indigo Talent Hub, donde transformamos este informe en un roadmap de ejecución prioritario para tu organización.</p>
+      <p>Una sesión de consultoría uno a uno de 20 minutos sin costo con el equipo de Indigo Talent Hub.</p>
       <div class="cta-buttons">
-        <a href="mailto:juan@indigotalent.com?subject=Sesión%20IA%20-%20${encodeURIComponent(lead.empresa)}&body=Hola%20Juan%2C%0A%0AQuiero%20agendar%20la%20sesión%20estratégica%20de%2020%20minutos%20para%20revisar%20el%20análisis%20de%20IA%20de%20${encodeURIComponent(lead.empresa)}." class="btn btn-primary no-print">Agendar sesión estratégica gratuita <span class="btn-arrow">→</span></a>
+        <a href="mailto:juan@indigotalent.com" class="btn btn-primary no-print">Agendar sesión estratégica gratuita <span class="btn-arrow">→</span></a>
         <button class="btn btn-ghost print-btn no-print" onclick="window.print()">Descargar reporte premium en PDF</button>
       </div>
     </div>
